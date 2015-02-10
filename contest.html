@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="CS 344G Congestion-Control Contest">
+    <meta name="author" content="Keith Winstein">
+
+    <title>CS 344G Contestion-Control Contest</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap theme -->
+    <link href="css/bootstrap-theme.min.css" rel="stylesheet">
+  </head>
+
+  <body role="document">
+
+    <div class="container" role="main">
+      <h2><span class="text-muted">CS 344G </span> <wbr><span class="text-primary">Congestion-Control Contest</span></h2>
+
+      <div class="progress">
+        <div id="contestprogress" class="progress-bar progress-bar-striped" role="progressbar"></div>
+      </div>
+    </div> <!-- /container -->
+
+    <div class="container">
+      <div class="row">
+	  <p>For <b>Wednesday, Feb. 11</b>:
+	  <p>Please set up the contest software on a GNU/Linux machine (physical or virtual) of your choosing. Please post any difficulties on <a href="https://piazza.com/stanford/winter2015/cs344g">the Piazza forum</a>. The following steps worked successfully on Ubuntu GNU/Linux 14.10:</p>
+	  <div class="well">
+	    $ <code>sudo apt-get install build-essential git debhelper autotools-dev dh-autoreconf iptables protobuf-compiler libprotobuf-dev pkg-config libssl-dev dnsmasq-base apache2-bin ssl-cert libxcb-present-dev libcairo2-dev libpango1.0-dev gnuplot</code> <span class="text-muted">(these dependencies are listed in <a href="https://github.com/keithw/mahimahi/blob/master/debian/control#L5">mahimahi/debian/control</a>)</span><br>
+	    $ <code>git clone https://github.com/keithw/mahimahi</code> <span class="text-muted">(the mahimahi tools provide our emulated cellular network and measurement tools)</span><br>
+	    $ <code>cd mahimahi</code><br>
+	    $ <code>./autogen.sh && ./configure && make</code> <span class="text-muted">(compile mahimahi the usual way)</span><br>
+	    $ <code>sudo make install</code><br>
+	    $ <code>cd ..</code><br>
+	    $ <code>git clone https://github.com/keithw/sourdough</code><br>
+	    $ <code>cd sourdough</code><br>
+	    $ <code>./autogen.sh && ./configure && make</code><br>
+	    $ <code>sudo sysctl -w net.ipv4.ip_forward=1</code><br> <span class="text-muted">(have to enable Linux's IP forwarding for mahimahi to work)</span><br>
+	    $ <code>cd datagrump</code><br>
+	    $ <code>./run-contest</code><br>
+	    Listening on :::9090<br>
+	    Sending to 100.64.0.1:9090<br>
+	    <span class="text-muted">(throughput and delay animations displayed as datagrump runs for two minutes)</span><br>
+	    LinkQueue: reached end of link recording<br>
+	    <i>[&#x2026;]</i><br>
+Average capacity: 5.04 Mbits/s<br>
+Average throughput of measured protocol: 4.81 Mbits/s (95.3% utilization)<br>
+95th percentile per-packet queueing delay: 237 ms<br>
+	    <span class="text-muted">(Firefox will display a graph of the measurement run)</span><br>
+	</div>
+      </div>
+    </div> <!-- container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="js/ie10-viewport-bug-workaround.js"></script>
+
+      <script>
+	document.getElementById("contestprogress").style.width = 100 * ((new Date().getTime() - 1423515000000) / 1224600000) + "%";
+      </script>
+  </body>
+</html>
