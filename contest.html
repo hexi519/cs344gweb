@@ -56,7 +56,7 @@
 
 	  <p>Please set up the contest software on a GNU/Linux machine (physical or virtual) of your choosing. Please post any difficulties on <a href="https://piazza.com/stanford/winter2016/cs344g">the Piazza forum</a>. The following steps worked successfully on Ubuntu GNU/Linux 15.10:</p>
 	  <div class="well">
-	    $ <code>sudo apt-get install build-essential git debhelper autotools-dev dh-autoreconf iptables protobuf-compiler libprotobuf-dev pkg-config libssl-dev dnsmasq-base apache2-bin ssl-cert libxcb-present-dev libcairo2-dev libpango1.0-dev gnuplot libwww-perl</code> <span class="text-muted">(these dependencies are listed in <a href="https://github.com/keithw/mahimahi/blob/master/debian/control#L5">mahimahi/debian/control</a>, plus some for the contest itself)</span><br>
+	    $ <code>sudo apt-get install build-essential git debhelper autotools-dev dh-autoreconf iptables protobuf-compiler libprotobuf-dev pkg-config libssl-dev dnsmasq-base ssl-cert libxcb-present-dev libcairo2-dev libpango1.0-dev iproute2 apache2-dev apache2-bin iptables dnsmasq-base gnuplot iproute2 apache2-api-20120211 libwww-perl</code> <span class="text-muted">(these dependencies are listed in <a href="https://github.com/keithw/mahimahi/blob/master/debian/control#L5">mahimahi/debian/control</a>, plus some for the contest itself)</span><br>
 	    $ <code>git clone <a href="https://github.com/ravinet/mahimahi">https://github.com/ravinet/mahimahi</a></code> <span class="text-muted">(the mahimahi tools provide our emulated cellular network and measurement tools)</span><br>
 	    $ <code>cd mahimahi</code><br>
 	    $ <code>./autogen.sh && ./configure && make</code> <span class="text-muted">(compile mahimahi the usual way)</span><br>
