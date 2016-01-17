@@ -7,7 +7,7 @@
     <meta name="description" content="CS 344G Congestion-Control Contest">
     <meta name="author" content="Keith Winstein">
 
-    <title>CS 344G Contestion-Control Contest</title>
+    <title>CS 344G Contestion-Control Contest (2016 edition)</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -27,39 +27,108 @@
 
     <div class="container">
       <div class="row">
-	  <p>Updated <b>Wednesday, Feb. 11</b>
-	  <p>Please set up the contest software on a GNU/Linux machine (physical or virtual) of your choosing. Please post any difficulties on <a href="https://piazza.com/stanford/winter2015/cs344g">the Piazza forum</a>. The following steps worked successfully on Ubuntu GNU/Linux 14.10:</p>
+	  <p>Updated <b>January 16, 2016</b>
+
+	  <p>This year, you will compete to build a congestion-control
+	    algorithm to maximize "power" (throughput / delay) on an
+	    emulated cellular network. You will start with
+	    a <a href="https://github.com/keithw/sourdough/tree/master/datagrump">simple UDP
+	    sender and receiver</a>, built on the same networking
+	    classes that you used in Warm-up 1.</p>
+
+	  <p>By modifying the behavior of the congestion controller
+	    (implemented in <a href="https://github.com/keithw/sourdough/blob/master/datagrump/controller.cc">controller.cc</a>), you can control how
+	    the sender decides when to send datagrams. The more
+	    datagrams it sends, the more your throughput will be,
+	    at the risk of building up an in-network standing queue
+	    and resulting delay.</p>
+
+<h2>Step 1: Watch video</h2>
+	  
+	  <p>Please watch this 25-minute video on the Sprout
+	    algorithm:<br>
+
+	    <iframe width="560" height="315" src="https://www.youtube.com/embed/FUgdF-2V8Cw" frameborder="0" allowfullscreen></iframe>
+
+	  </p>
+	  
+<h2>Step 2: Install the contest software</h2>
+
+	  <p>Please set up the contest software on a GNU/Linux machine (physical or virtual) of your choosing. Please post any difficulties on <a href="https://piazza.com/stanford/winter2016/cs344g">the Piazza forum</a>. The following steps worked successfully on Ubuntu GNU/Linux 15.10:</p>
 	  <div class="well">
 	    $ <code>sudo apt-get install build-essential git debhelper autotools-dev dh-autoreconf iptables protobuf-compiler libprotobuf-dev pkg-config libssl-dev dnsmasq-base apache2-bin ssl-cert libxcb-present-dev libcairo2-dev libpango1.0-dev gnuplot libwww-perl</code> <span class="text-muted">(these dependencies are listed in <a href="https://github.com/keithw/mahimahi/blob/master/debian/control#L5">mahimahi/debian/control</a>, plus some for the contest itself)</span><br>
-	    $ <code>git clone https://github.com/keithw/mahimahi</code> <span class="text-muted">(the mahimahi tools provide our emulated cellular network and measurement tools)</span><br>
+	    $ <code>git clone <a href="https://github.com/ravinet/mahimahi">https://github.com/ravinet/mahimahi</a></code> <span class="text-muted">(the mahimahi tools provide our emulated cellular network and measurement tools)</span><br>
 	    $ <code>cd mahimahi</code><br>
 	    $ <code>./autogen.sh && ./configure && make</code> <span class="text-muted">(compile mahimahi the usual way)</span><br>
 	    $ <code>sudo make install</code><br>
 	    $ <code>cd ..</code><br>
-	    $ <code>git clone https://github.com/keithw/sourdough</code><br>
+	    $ <code>git clone <a href="https://github.com/keithw/sourdough">https://github.com/keithw/sourdough</a></code><br>
 	    $ <code>cd sourdough</code><br>
-	    $ <code>./autogen.sh && ./configure && make</code><br>
-	    $ <code>sudo sysctl -w net.ipv4.ip_forward=1</code><br> <span class="text-muted">(have to enable Linux's IP forwarding for mahimahi to work)</span><br>
+	    $ <code>./autogen.sh && ./configure && make</code> <span class="text-muted">(compile the contest code the usual way)</span><br>
+	    $ <code>sudo sysctl -w net.ipv4.ip_forward=1</code><span class="text-muted">(have to enable Linux's IP forwarding for mahimahi to work)</span><br>
 	    $ <code>cd datagrump</code><br>
+	  </div>
+
+	  <h2>Step 3: run the example code</h2>
+	  <div class="well">
+
+<p> This command will run the congestion-controller
+	    in <a href="https://github.com/keithw/sourdough/blob/master/datagrump/controller.cc">https://github.com/keithw/sourdough/blob/master/datagrump/controller.cc</a>
+	    for about two minutes over an emulated Verizon LTE (4G)
+	    connection. While it runs, you will see an animation of
+	    the network's capacity, the sending rate of the algorithm,
+	    and the in-network queueing delay. After the run
+	    completes, it will upload your results to the contest
+  website. If you do not see "upload successful," please
+report the problem on Piazza.</p>
+	    
 	    $ <code>./run-contest <i>[username]</i></code><br>
-	    Listening on :::9090<br>
-	    Sending to 100.64.0.1:9090<br>
-	    <span class="text-muted">(throughput and delay animations displayed as datagrump runs for two minutes)</span><br>
-	    LinkQueue: reached end of link recording<br>
-	    LinkQueue: reached end of link recording<br>
-	    <i>[&#x2026;]</i><br>
-Average capacity: 5.04 Mbits/s<br>
-Average throughput of measured protocol: 4.81 Mbits/s (95.3% utilization)<br>
-95th percentile per-packet queueing delay: 237 ms<br>
-<br>
-Uploading data to server... done.<br>
-<br>
-Upload successful (2430344 bytes).<br>
-For analysis, please visit:<br>
-<br>
-   http://6829.keithw.org/report?keithw-1423696565-guixeita
-	</div>
+
+<pre>
+Listening on :::9090
+Sending to 100.64.0.1:9090
+
+Average capacity: 5.04 Mbits/s
+Average throughput: 4.80 Mbits/s (95.2% utilization)
+95th percentile per-packet queueing delay: 237 ms
+95th percentile signal delay: 608 ms
+
+Uploading data to server... done.
+
+Upload successful (2427648 bytes).
+For analysis, please visit:
+
+   <a href="http://cs344g.keithw.org/report/?example-1453001748-thaiphei">http://cs344g.keithw.org/report/?example-1453001748-thaiphei</a>
+</pre>
+	  </div>
+
+	  <h2>Step 4: visit your analysis URL</h2>
+
+	  <p>The URL given by the uploader will allow you to see
+	    the results of your congestion-control scheme, compared with others in the class,
+	    the winning entries from previous classes, and the Sprout algorithm. (You will need to visit the URL for your algorithm to join the leaderboard.)</p>
+	  
+	  <h2>Step 5: modify the controller to improve your results on the training data</h2>
+
+	  <p>First, read through the existing congestion controller in
+	    the <a href="https://github.com/keithw/sourdough/tree/master/datagrump">datagrump</a>
+	    directory. To modify the congestion-control behavior, you
+	    will <strong>probably</strong> will only need to modify
+	    the <code>controller.cc</code> file, and
+	    perhaps <code>controller.hh</code>. If necessary, though,
+	    you are free to modify anything in sourdough (except the
+	  <code>run-contest</code> script).</p>
+
+	  <p>Be wary about "overtraining": after the contest is over,
+	    I will collect new network traces and then run everybody's
+	    entries over the newly-collected evaluation trace.</p>
+
+	  <p><b>Good luck! Fame and glory await you.</b></p>
+
+<p>
+	  
       </div>
+      <div class="row"></div>
     </div> <!-- container -->
 
     <!-- Bootstrap core JavaScript
@@ -71,7 +140,7 @@ For analysis, please visit:<br>
     <script src="js/ie10-viewport-bug-workaround.js"></script>
 
       <script>
-	document.getElementById("contestprogress").style.width = 100 * ((new Date().getTime() - 1423515000000) / 1224600000) + "%";
+	document.getElementById("contestprogress").style.width = 100 * ((new Date().getTime() - 1453017600000) / 1468800000) + "%";
       </script>
   </body>
 </html>
