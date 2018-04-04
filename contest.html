@@ -27,9 +27,9 @@
 
     <div class="container">
       <div class="row">
-	  <p>Updated <b>April 13, 2016</b>
+	  <p>Updated <b>April 4, 2018</b>
 
-	  <p>In PA2, you will compete to build a congestion-control
+	  <p>In PA1, you will compete to build a congestion-control
 	    algorithm to maximize "power" (throughput / delay) on an
 	    emulated cellular network. You will start with
 	    a <a href="https://github.com/keithw/sourdough/tree/master/datagrump">simple UDP
@@ -62,7 +62,7 @@ software runs in real time, the best performance will be achieved on a faster (a
 You may find that an EC2 instance gives more reliable results than your own laptop, but without the animated
 graphs that can give help for debugging and development.</p>
 
-<p>Please post any difficulties on <a href="https://piazza.com/stanford/spring2016/cs244">the Piazza forum</a>. The following steps worked successfully on Ubuntu GNU/Linux 14.04 and 15.10:</p>
+<p>Please post any difficulties on <a href="https://piazza.com/stanford/spring2018/cs244">the Piazza forum</a>. The following steps worked successfully on Ubuntu GNU/Linux 14.04 through 17.10:</p>
 	  <div class="well">
 	    $ <code>sudo apt-get install build-essential git debhelper autotools-dev dh-autoreconf iptables protobuf-compiler libprotobuf-dev pkg-config libssl-dev dnsmasq-base ssl-cert libxcb-present-dev libcairo2-dev libpango1.0-dev iproute2 apache2-dev apache2-bin iptables dnsmasq-base gnuplot iproute2 apache2-api-20120211 libwww-perl</code> <span class="text-muted">(these dependencies are listed in <a href="https://github.com/keithw/mahimahi/blob/master/debian/control#L5">mahimahi/debian/control</a>, plus some for the contest itself)</span><br>
 	    $ <code>git clone <a href="https://github.com/ravinet/mahimahi">https://github.com/ravinet/mahimahi</a></code> <span class="text-muted">(the mahimahi tools provide our emulated cellular network and measurement tools)</span><br>
@@ -89,8 +89,10 @@ graphs that can give help for debugging and development.</p>
 	    completes, it will upload your results to the contest
   website. If you do not see "upload successful," please
 report the problem on Piazza.</p>
+
+<p><b>Please use the same scheme name for each of your submissions &mdash; otherwise you will pollute the leaderboard.</b></p>
 	    
-	    $ <code>./run-contest <i>[username]</i></code><br>
+	    $ <code>./run-contest <i>[scheme_name]</i></code><br>
 
 <pre>
 Listening on :::9090
@@ -142,14 +144,16 @@ For analysis, please visit:
 	    <li>Warmup exercise B [20%]: Implement a
           simple <a href="http://en.wikipedia.org/wiki/Additive_increase/multiplicative_decrease">AIMD
           scheme</a>, similar to TCP's congestion-avoidance phase. How
-          well does this work? What constants did you choose?</li>
+          well does this work? What constants, and what backoff trigger, did you choose?</li>
 
+<!--
 	    <li>Warmup exercise C [20%]: Implement a simple delay-triggered scheme, where the
           window rises or falls based on whether the round-trip-time
           crosses some threshold value. Experiment with a few
           thresholds or tweaks and report on what worked the best.</li>
+-->
 
-	    <li>Exercise D [50%]: <b>the contest</b>. Try different
+	    <li>Exercise C [65%]: <b>the contest</b>. Try different
 	      approaches and work to maximize your score on the final
 	      evaluation. Be wary about "overtraining": after the
 	      contest is over, we will collect new network traces and
@@ -157,17 +161,16 @@ For analysis, please visit:
 	      evaluation trace. In your report, please explain your
 	      approach, including the important decisions you had to make and how you made them. Include illustrative plots.</li>
 
-	    <li>Exercise E [0%]: pick a cool name for your scheme!</li>
+	    <li>Exercise D [5%]: pick a cool name for your scheme!</li>
 
 	  </ul>
 
 	  <h2>Step 6: submission</h2>
 
-	  <p>The homework is due at <strong>11:59 p.m. Pacific time on
-	      Friday, April 29</strong>. Please submit your report as PDF and a
+	  <p>The homework is due at <strong>5:00 p.m. Pacific time on
+	      Tuesday, April 17</strong>. Please submit your report as PDF and a
 	    link to a Git repository where we can download your
-	    code. Please run the submit script on your PDF file, similar
-	    to PA 1: <code>/afs/ir/class/cs244/bin/submit 2 <i>reportname</i>.pdf</code>.
+	    code. Please run the submit script on your PDF file: <code>/afs/ir/class/cs244/bin/submit 1 <i>reportname</i>.pdf</code>.
 
 	    <p><b>Provisos</b>: Your Git repository must inherit from the current
 	    commit on the <code>datagrump</code> repository. Your
@@ -177,9 +180,8 @@ For analysis, please visit:
 	      achieved on the Verizon 140-second trace, so we can make
 	      sure your code is running as expected.</p>
 
-	  <p><b>Good luck!</b> Fame and prizes await. The top two entrants will receive
-	  exciting gift cards and glory and will be asked to explain their winning
-	    approaches in class.</p>
+	  <p><b>Good luck!</b> The top submissions will be given an
+opportunity to describe their approach in class.</p>
 
 <p>
 	  
@@ -196,7 +198,7 @@ For analysis, please visit:
     <script src="js/ie10-viewport-bug-workaround.js"></script>
 
       <script>
-	document.getElementById("contestprogress").style.width = 100 * ((new Date().getTime() - 1460589600000) / 1409940000) + "%";
+	document.getElementById("contestprogress").style.width = 100 * ((new Date().getTime() - 1522884000000) / 1125600000) + "%";
       </script>
   </body>
 </html>
